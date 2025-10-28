@@ -54,7 +54,19 @@ Bot de Telegram para consultar información de packs de Mortal Kombat Mobile y r
 - Las tablas se crean automáticamente al iniciar el bot
 - Para agregar datos de ejemplo, ejecuta: `python example_data.py`
 
+## Base de Datos de Packs
+La base de datos contiene 54 packs de Mortal Kombat Mobile:
+- 27 packs que cuestan Almas
+- 27 packs que cuestan Cristales
+- Incluye packs de personajes, equipamiento y packs especiales
+- Los datos se pueden actualizar usando el script `update_packs_from_file.py`
+
 ## Cambios Recientes
+- 28/10/2025: Actualización completa de la base de datos de packs
+  - Agregados 54 packs oficiales de MK Mobile
+  - Soporte para Almas y Cristales como monedas
+  - Base de datos actualizada con modelo mejorado (crystals_cost)
+  
 - 28/10/2025: Creación inicial del bot
   - Integración con PostgreSQL
   - Comandos para consultar packs

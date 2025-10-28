@@ -69,12 +69,18 @@ async def list_packs(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         message = "🎮 <b>Packs de Mortal Kombat Mobile</b>\n\n"
         for pack in packs:
-            souls = f"{pack.souls_cost} almas" if pack.souls_cost else "N/A"
-            message += (
-                f"📦 <b>{pack.name}</b>\n"
-                f"   💰 Precio: ${pack.price} {pack.currency}\n"
-                f"   👻 Almas: {souls}\n"
-            )
+            # Determinar el costo
+            if pack.souls_cost > 0:
+                cost = f"👻 {pack.souls_cost} almas"
+            elif pack.crystals_cost > 0:
+                cost = f"💎 {pack.crystals_cost} cristales"
+            elif pack.price > 0:
+                cost = f"💰 ${pack.price} {pack.currency}"
+            else:
+                cost = "🎁 Gratis"
+            
+            message += f"📦 <b>{pack.name}</b>\n   {cost}\n"
+            
             if pack.description:
                 message += f"   📝 {pack.description[:100]}...\n"
             message += "\n"
@@ -88,7 +94,7 @@ async def search_pack(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await update.message.reply_text(
             "Por favor, especifica el nombre del pack.\n"
-            "Ejemplo: /pack Diamond"
+            "Ejemplo: /pack Scorpion"
         )
         return
     
@@ -107,12 +113,18 @@ async def search_pack(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         message = f"🔍 <b>Resultados para '{search_term}':</b>\n\n"
         for pack in packs:
-            souls = f"{pack.souls_cost} almas" if pack.souls_cost else "N/A"
-            message += (
-                f"📦 <b>{pack.name}</b>\n"
-                f"   💰 ${pack.price} {pack.currency}\n"
-                f"   👻 {souls}\n"
-            )
+            # Determinar el costo
+            if pack.souls_cost > 0:
+                cost = f"👻 {pack.souls_cost} almas"
+            elif pack.crystals_cost > 0:
+                cost = f"💎 {pack.crystals_cost} cristales"
+            elif pack.price > 0:
+                cost = f"💰 ${pack.price} {pack.currency}"
+            else:
+                cost = "🎁 Gratis"
+            
+            message += f"📦 <b>{pack.name}</b>\n   {cost}\n"
+            
             if pack.description:
                 message += f"   📝 {pack.description}\n"
             message += "\n"

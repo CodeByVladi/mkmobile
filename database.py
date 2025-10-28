@@ -12,10 +12,11 @@ class MKPack(Base):
     
     id = Column(Integer, primary_key=True)
     name = Column(String(200), nullable=False)
-    price = Column(Float, nullable=False)
+    price = Column(Float, default=0.0)
     currency = Column(String(10), default='USD')
     description = Column(Text)
-    souls_cost = Column(Integer)
+    souls_cost = Column(Integer, default=0)
+    crystals_cost = Column(Integer, default=0)
     available = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     
