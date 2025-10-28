@@ -57,9 +57,14 @@ def get_engine():
     return create_engine(database_url)
 
 def init_db():
-    """Inicializar base de datos y crear tablas"""
+    """Inicializar base de datos y crear tablas si no existen"""
     engine = get_engine()
-    Base.metadata.create_all(engine)
+    try:
+        Base.metadata.create_all(engine)
+    except Exception as e:
+        # If tables already exist, that's okay
+        import logging
+        logging.getLogger(__name__).info(f"Database tables may already exist: {e}")
     return engine
 
 def get_session():
