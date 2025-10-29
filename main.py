@@ -403,7 +403,7 @@ def main():
         return
     
     # Initialize database
-    try:
+try:
     init_db()
     logger.info("Base de datos inicializada correctamente")
 
@@ -436,6 +436,7 @@ def main():
 except Exception as e:
     logger.error(f"Error al inicializar la base de datos: {e}")
     exit()
+
 
 # Crear aplicación de Telegram
 application = Application.builder().token(token).build()
