@@ -4,6 +4,7 @@ from datetime import datetime
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from database import init_db, get_session, MKPack, Video, Subscriber
+import update_packs_from_file
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
