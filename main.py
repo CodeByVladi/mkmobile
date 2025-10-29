@@ -392,13 +392,41 @@ def main():
     
     # Initialize database
     try:
-        init_db()
-        logger.info("Base de datos inicializada correctamente")
-    except Exception as e:
-        logger.error(f"Error al inicializar la base de datos: {e}")
-        return
-    
-    application = Application.builder().token(token).build()
+    init_db()
+    logger.info("Base de datos inicializada correctamente")
+
+    from database import get_session, MKPack
+    import update_packs_from_file
+
+    packs = update_packs_from_file.load_packs()
+    print("Packs cargados desde archivo:", len(packs))
+
+    if packs:
+        session = get_session()
+        for pack in packs:
+            existing = session.query(MKPack).filter_by(name=pack["name"]).first()
+            if not existing:
+                nuevo_pack = MKPack(
+                    name=pack["name"],
+                    description=pack.get("description", ""),
+                    souls_cost=pack.get("souls_cost", 0),
+                    crystals_cost=pack.get("crystals_cost", 0),
+                    price=pack.get("price", 0.0),
+                    currency=pack.get("currency", "USD")
+                )
+                session.add(nuevo_pack)
+        session.commit()
+        session.close()
+        print("✅ Packs guardados en la base de datos")
+    else:
+        print("⚠️ No se cargaron packs desde el archivo")
+
+except Exception as e:
+    logger.error(f"Error al inicializar la base de datos: {e}")
+    exit()
+
+# Crear aplicación de Telegram
+application = Application.builder().token(token).build()
     
     # Command handlers
     application.add_handler(CommandHandler("start", start))
