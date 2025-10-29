@@ -440,28 +440,26 @@ except Exception as e:
 
 # Crear aplicación de Telegram
 application = Application.builder().token(token).build()
-    
-    # Command handlers
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("packs", list_packs))
-    application.add_handler(CommandHandler("pack", search_pack))
-    application.add_handler(CommandHandler("videos", list_videos))
-    application.add_handler(CommandHandler("subscribe", subscribe))
-    application.add_handler(CommandHandler("unsubscribe", unsubscribe))
-    application.add_handler(CommandHandler("addpack", add_pack))
-    application.add_handler(CommandHandler("addvideo", add_video))
-    application.add_handler(CommandHandler("start", start))
 
-    
-    logger.info("Bot started successfully! Press Ctrl+C to stop.")
-    print("\n" + "="*60)
-    print("✅ Bot de Mortal Kombat Mobile está funcionando!")
-    print("="*60)
-    print("\n¡Ve a Telegram y busca tu bot para comenzar a chatear!")
-    print("="*60 + "\n")
-    
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+# Command handlers
+application.add_handler(CommandHandler("start", start))
+application.add_handler(CommandHandler("help", help_command))
+application.add_handler(CommandHandler("packs", list_packs))
+application.add_handler(CommandHandler("pack", search_pack))
+application.add_handler(CommandHandler("videos", list_videos))
+application.add_handler(CommandHandler("subscribe", subscribe))
+application.add_handler(CommandHandler("unsubscribe", unsubscribe))
+application.add_handler(CommandHandler("addpack", add_pack))
+application.add_handler(CommandHandler("addvideo", add_video))
+
+logger.info("Bot started successfully! Press Ctrl+C to stop.")
+print("\n" + "="*60)
+print("✅ Bot de Mortal Kombat Mobile está funcionando!")
+print("="*60)
+print("\n¡Ve a Telegram y busca tu bot para comenzar a chatear!")
+print("="*60 + "\n")
+
+application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == '__main__':
     main()
