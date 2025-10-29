@@ -6,6 +6,18 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 from database import init_db, get_session, MKPack, Video, Subscriber
 import update_packs_from_file
 
+import threading
+from flask import Flask
+
+def dummy_server():
+    app = Flask(__name__)
+
+    @app.route('/')
+    def home():
+        return "Bot running..."
+
+    app.run(host='0.0.0.0', port=10000)
+
 packs = update_packs_from_file.load_packs()
 print("Packs cargados:", packs)
 
