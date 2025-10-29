@@ -451,8 +451,8 @@ application = Application.builder().token(token).build()
     application.add_handler(CommandHandler("unsubscribe", unsubscribe))
     application.add_handler(CommandHandler("addpack", add_pack))
     application.add_handler(CommandHandler("addvideo", add_video))
-    
-    application.add_error_handler(error_handler)
+    application.add_handler(CommandHandler("start", start))
+
     
     logger.info("Bot started successfully! Press Ctrl+C to stop.")
     print("\n" + "="*60)
