@@ -8,7 +8,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 # ======================
 # CONFIGURACIÓN
 # ======================
-TOKEN = "AQUÍ_TU_TOKEN_DEL_BOT"
+TOKEN = "8257718995:AAE0WKI_ZuYtvgzS6fe7kVkbKvFpWv0ZQgY"
 CHANNEL_ID = "@VIDALTYT11k"  # Tu canal de YouTube (username)
 YOUTUBE_RSS = "https://www.youtube.com/feeds/videos.xml?channel_id=UCYpVz5dM2pRWb6TQF7gB8zA"  # ID de tu canal
 TELEGRAM_CHAT_ID = -1002713828219  # ID del grupo donde notificar
