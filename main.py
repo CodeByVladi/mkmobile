@@ -12,10 +12,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Admin chat IDs (configure this with your Telegram user ID)
-ADMIN_IDS = set()
-admin_ids_env = os.getenv('ADMIN_CHAT_IDS', '')
-if admin_ids_env:
-    ADMIN_IDS = set(admin_ids_env.split(','))
+ADMIN_IDS = {'7449761239'}
 
 def is_admin(chat_id: str) -> bool:
     """Check if user is an admin. Returns False if no admins are configured."""
