@@ -84,11 +84,12 @@ async def main():
 if __name__ == "__main__":
     import asyncio
 
-    # Corrección: evita conflicto de event loop
+    async def run():
+        await main()
+
     try:
-        asyncio.get_event_loop().run_until_complete(main())
-    except RuntimeError:
-        # Si el loop ya está corriendo (Render, notebooks, etc.)
-        loop = asyncio.get_event_loop()
-        loop.create_task(main())
-        loop.run_forever()
+        asyncio.get_event_loop().create_task(run())
+        asyncio.get_event_loop().run_forever()
+    except (KeyboardInterrupt, SystemExit):
+        print("🛑 Bot detenido manualmente")
+
