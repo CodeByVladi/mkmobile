@@ -15,7 +15,6 @@ TELEGRAM_CHAT_ID = -1002713828219  # ID del grupo donde notificar
 
 last_video_id = None
 
-
 # ======================
 # FUNCIONES
 # ======================
@@ -64,7 +63,7 @@ async def notify(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # ======================
-# MAIN
+# MAIN CORREGIDO
 # ======================
 
 async def main():
@@ -74,22 +73,25 @@ async def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("notify", notify))
 
-    # Ejecutar verificación de videos en segundo plano
+    # Tarea en segundo plano
     asyncio.create_task(check_new_videos(app))
 
     print("✅ Bot iniciado correctamente y escuchando comandos...")
-    await app.run_polling()
+
+    # Iniciar el bot manualmente (sin cerrar el bucle)
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+
+    # Mantener el bot corriendo
+    await asyncio.Event().wait()
 
 
 if __name__ == "__main__":
-    import asyncio
-
-    async def run():
-        await main()
-
     try:
-        asyncio.get_event_loop().create_task(run())
-        asyncio.get_event_loop().run_forever()
-    except (KeyboardInterrupt, SystemExit):
-        print("🛑 Bot detenido manualmente")
+        asyncio.run(main())
+    except RuntimeError:
+        # Si el entorno ya tiene un bucle corriendo (Render, Replit, etc.)
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
 
