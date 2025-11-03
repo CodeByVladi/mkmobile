@@ -82,4 +82,13 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    import asyncio
+
+    # Corrección: evita conflicto de event loop
+    try:
+        asyncio.get_event_loop().run_until_complete(main())
+    except RuntimeError:
+        # Si el loop ya está corriendo (Render, notebooks, etc.)
+        loop = asyncio.get_event_loop()
+        loop.create_task(main())
+        loop.run_forever()
